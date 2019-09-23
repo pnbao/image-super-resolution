@@ -2,7 +2,7 @@ from keras.layers import concatenate, Flatten, Input, Activation, Dense, Conv2D,
 from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Model
 from keras.optimizers import Adam
-
+from keras.utils.vis_utils import plot_model
 
 class Discriminator:
     """
@@ -70,4 +70,6 @@ class Discriminator:
         HR_v_SR = Activation('sigmoid')(x)
 
         discriminator = Model(inputs=HR, outputs=HR_v_SR)
+        discriminator.summary()
+        plot_model(discriminator, to_file='discriminator_model_plot.png', show_shapes=True, show_layer_names=True)
         return discriminator

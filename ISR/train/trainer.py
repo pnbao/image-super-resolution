@@ -13,7 +13,7 @@ from ISR.utils.metrics import PSNR
 from ISR.utils.metrics import PSNR_Y
 from ISR.utils.logger import get_logger
 from ISR.utils.utils import check_parameter_keys
-
+from keras.utils.vis_utils import plot_model
 
 class Trainer:
     """Class object to setup and carry the training.
@@ -204,6 +204,8 @@ class Trainer:
         combined.compile(
             loss=losses, loss_weights=loss_weights, optimizer=optimizer, metrics=self.metrics
         )
+        combined.summary()
+        plot_model(combined, to_file='trainer_combined_model_plot.png', show_shapes=True, show_layer_names=True)
         return combined
 
     def _lr_scheduler(self, epoch):

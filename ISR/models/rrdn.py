@@ -3,7 +3,7 @@ from keras.initializers import RandomUniform
 from keras.layers import UpSampling2D, concatenate, Input, Activation, Add, Conv2D, Lambda
 from keras.models import Model
 from ISR.models.imagemodel import ImageModel
-
+from keras.utils.vis_utils import plot_model
 
 def make_model(arch_params, patch_size):
     """ Returns the model.
@@ -161,4 +161,7 @@ class RRDN(ImageModel):
             kernel_initializer=self.initializer,
             name='SR',
         )(PS)
-        return Model(inputs=LR_input, outputs=SR)
+        model = Model(inputs=LR_input, outputs=SR)
+        model.summary()
+        plot_model(model, to_file='RRDN_model_plot.png', show_shapes=True, show_layer_names=True)
+        return model

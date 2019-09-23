@@ -2,7 +2,7 @@ from keras.models import Model
 from keras.applications.vgg19 import VGG19
 from keras.layers import Input
 from ISR.utils.logger import get_logger
-
+from keras.utils.vis_utils import plot_model
 
 class Cut_VGG19:
     """
@@ -48,3 +48,5 @@ class Cut_VGG19:
         self.model = Model(inputs=hr, outputs=features)
         self.model.name = 'feature_extractor'
         self.name = 'vgg19'  # used in weights naming
+        self.model.summary()
+        plot_model(self.model, to_file='cut_vgg19_model_plot.png', show_shapes=True, show_layer_names=True)
